@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    grid-template-areas:
+        "topbar topbar topbar"
+        "content content sidebar"
+        "content content sidebar"
+        "bottombar bottombar bottombar"
+    ;
+}
+
+.topBar {
+    grid-area: topbar;
+}
+
+.bottomBar {
+    grid-area: bottombar;
+}
+
+.content {
+    grid-area: content;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}

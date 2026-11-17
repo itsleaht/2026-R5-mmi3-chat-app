@@ -7,6 +7,7 @@ import { UserJoin } from './components/UserJoin'
 import { TypeMessage } from './components/TypeMessage'
 import { useMessageStore } from './store/messageStore'
 import { MessageList } from './components/MessageList'
+import { Layout } from './components/Layout'
 
 function App() {
   const socket = useSocket()
@@ -51,12 +52,18 @@ function App() {
   }, [socket])
 
   return (
-    <>
-      <UserJoin />
-      <UserList userList={users} />
-      <MessageList messageList={messages} />
-      <TypeMessage />
-    </>
+    <Layout
+      topBar={
+        <UserJoin />
+      }
+      sideBar={
+        <UserList userList={users} />
+      }
+      bottomBar={
+        <TypeMessage />
+      }>
+        <MessageList messageList={messages} />
+      </Layout>
   )
 }
 
