@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Web chat server for MMI3 students",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx tsx index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^6.0.1",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
