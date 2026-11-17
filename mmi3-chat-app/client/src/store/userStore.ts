@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { type User } from "../../../types/events"
+
 type UserState = {
     users: User[]
 }

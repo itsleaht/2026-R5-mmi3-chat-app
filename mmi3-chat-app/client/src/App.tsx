@@ -5,11 +5,15 @@ import { useUserStore } from './store/userStore'
 import { UserList } from './components/UserList'
 import { UserJoin } from './components/UserJoin'
 import { TypeMessage } from './components/TypeMessage'
+import { useMessageStore } from './store/messageStore'
+import { MessageList } from './components/MessageList'
 
 function App() {
   const socket = useSocket()
   const setUsers = useUserStore((state) => state.setUsers)
   const users = useUserStore((state) => state.users)
+  const addMessage = useMessageStore((state) => state.addMessage)
+  const messages = useMessageStore((state) => state.messages)
 
   useEffect(() => {
     socket.on('user_list', (payload) => {
@@ -25,10 +29,21 @@ function App() {
     socket.emit('query_user_list');
   }, [socket])
 
+  useEffect(() => {
+    socket.on('receive_message', (payload) => {
+      addMessage(payload.message)
+    })
+
+    return () => {
+      socket.off('receive_message')
+    }
+  }, [socket])
+
   return (
     <>
       <UserJoin />
       <UserList userList={users} />
+      <MessageList messageList={messages} />
       <TypeMessage />
     </>
   )
