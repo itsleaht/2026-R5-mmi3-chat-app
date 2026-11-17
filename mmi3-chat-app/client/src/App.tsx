@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
-import { Button } from './components/Button'
 import { useSocket } from './contexts/SocketContext'
 import { useUserStore } from './store/userStore'
+import { UserList } from './components/UserList'
+import { UserJoin } from './components/UserJoin'
+import { TypeMessage } from './components/TypeMessage'
 
 function App() {
   const socket = useSocket()
   const setUsers = useUserStore((state) => state.setUsers)
   const users = useUserStore((state) => state.users)
-  const [inputUsernameValue, setInputUsernameValue] = useState("")
 
   useEffect(() => {
     socket.on('user_list', (payload) => {
@@ -20,21 +21,15 @@ function App() {
     }
   }, [socket])
 
+  useEffect(() => {
+    socket.emit('query_user_list');
+  }, [socket])
+
   return (
     <>
-      <input type="text" placeholder="Nom d'utilisateur" className="input" onChange={(e) => setInputUsernameValue(e.currentTarget.value)} />
-      <Button 
-        onClickButton={() => {
-          socket.emit('user_join', {
-            user: {
-              username: inputUsernameValue
-            }
-          })
-        }}>bouton</Button>
-        {users.map((user) => <div key={user.id}>
-          {user.id} - {user.username}
-        </div>)}
-
+      <UserJoin />
+      <UserList userList={users} />
+      <TypeMessage />
     </>
   )
 }
