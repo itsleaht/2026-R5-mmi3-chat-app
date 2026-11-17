@@ -13,6 +13,7 @@ function App() {
   const setUsers = useUserStore((state) => state.setUsers)
   const users = useUserStore((state) => state.users)
   const addMessage = useMessageStore((state) => state.addMessage)
+  const setMessages = useMessageStore((state) => state.setMessages)
   const messages = useMessageStore((state) => state.messages)
 
   useEffect(() => {
@@ -27,6 +28,16 @@ function App() {
 
   useEffect(() => {
     socket.emit('query_user_list');
+  }, [socket])
+
+  useEffect(() => {
+    socket.on('message_list', (payload) => {
+      setMessages(payload.list)
+    })
+  }, [socket])
+
+  useEffect(() => {
+    socket.emit('query_message_list');
   }, [socket])
 
   useEffect(() => {
